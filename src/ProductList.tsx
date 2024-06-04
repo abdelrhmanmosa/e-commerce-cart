@@ -1,14 +1,16 @@
+// import { useGetProductListQuery } from "./app/features/cart/productSlice";
+import { useGetProductListQuery } from "./app/features/cart/productSlice";
 import ProductCard from "./components/ProductCard";
-import useCustomQuery from "./hooks/useCustomQuery";
+
 import { IProduct } from "./interfaces";
 
 const ProductList = () => {
-  const { isLoading, data } = useCustomQuery({
-    queryKey: ["productList"],
-    url: `/products?limit=12&select=title,price,thumbnail`,
-  });
+  // const {data, isLoading} = useGetProductListQuery();
+  const { data, isLoading, error } = useGetProductListQuery({});
+  console.log({ data, isLoading, error });
 
-  if (isLoading) return <h3>Loading...</h3>;
+  if (isLoading) return <h3>loading...</h3>;
+  if (error) return <h3>{`${error}`}</h3>;
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-2 md:gap-4 p-2 rounded-md">
